@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ms.job.dao.MqApiSchedulerReadDao">
+    <resultMap id="mqApiSchedulerDTO" type="com.ms.job.dto.MqApiSchedulerDTO" />
+
+    <select id="getWaitHandleMpApiSchedulerByPartition" resultMap="mqApiSchedulerDTO" parameterType="java.lang.Object">
+        <![CDATA[
+        SELECT * FROM mq_api_scheduler
+        WHERE `partition` = #{partition} AND request_status = 0 AND next_request_time <= NOW() AND possess_count = 0
+        LIMIT #{count}
+        ]]>
+    </select>
+</mapper>

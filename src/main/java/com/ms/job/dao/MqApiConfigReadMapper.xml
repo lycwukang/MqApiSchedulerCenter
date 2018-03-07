@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ms.job.dao.MqApiConfigReadDao">
+    <resultMap id="mqApiConfigDTO" type="com.ms.job.dto.MqApiConfigDTO" />
+
+    <select id="findByApi" resultMap="mqApiConfigDTO" parameterType="java.lang.Object">
+        SELECT * FROM mq_api_config WHERE api=#{api}
+    </select>
+</mapper>

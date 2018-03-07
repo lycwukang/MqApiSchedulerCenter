@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ms.job.dao.MqApiSchedulerWriteDao">
+    <insert id="addHandleMpApiScheduler" parameterType="java.lang.Object">
+        INSERT INTO mq_api_scheduler(api, `partition`, uid, content, request_address)
+        VALUES (#{api}, #{partition}, #{uid}, #{content}, #{requestAddress})
+    </insert>
+
+    <update id="lockMpApiScheduler" parameterType="java.lang.Object">
+        UPDATE mq_api_scheduler SET possess_count=1 WHERE id=#{id} AND possess_count=0
+    </update>
+
+    <update id="freeLockMpApiScheduler" parameterType="java.lang.Object">
+        UPDATE mq_api_scheduler SET possess_count=0 WHERE id=#{id} AND possess_count=1
+    </update>
+    
+    <update id="updateMpApiScheduler" parameterType="java.lang.Object">
+        UPDATE mq_api_scheduler
+        SET previous_request_time=#{previousRequestTime}, request_count=#{requestCount}, process_time=#{processTime}, request_status=#{requestStatus}, request_result=#{requestResult}, next_request_time=#{nextRequestTime}
+        WHERE id=#{id}
+    </update>
+</mapper>
